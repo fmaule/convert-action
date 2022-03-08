@@ -1,6 +1,6 @@
 {
   "name": "@fmaule/convert-action",
-  "version": "0.1.3",
+  "version": "0.2.2",
   "description": "Update the runs.using and runs.main fields in a GitHub Actions action.yml file",
   "main": "index.js",
   "scripts": {
