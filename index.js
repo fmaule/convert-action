@@ -1,5 +1,5 @@
 const yaml = require("js-yaml");
-module.exports = function (main, filename, runner) {
+module.exports = function (runner, main, filename) {
   main = main || "dist/index.js";
   filename = filename || "action.yml";
   runner = runner || 'node16';

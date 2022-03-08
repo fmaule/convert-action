@@ -1,45 +1,43 @@
-const { TestScheduler } = require("jest");
-const run = require(".");
-const fs = require("fs");
-const yaml = require("js-yaml");
+const run = require('.');
+const fs = require('fs');
 
-jest.mock("fs");
+jest.mock('fs');
 
 beforeEach(() => {
   jest.restoreAllMocks();
 });
 
-test("has a default filename", () => {
+test('has a default filename', () => {
   mockActionYaml();
-  jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
+  jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
   run();
-  expect(fs.readFileSync).toBeCalledWith("action.yml");
+  expect(fs.readFileSync).toBeCalledWith('action.yml');
 });
 
-test("reads the correct filename", () => {
+test('reads the correct filename', () => {
   mockActionYaml();
-  jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
-  run(``, "other-action.yml");
-  expect(fs.readFileSync).toBeCalledWith("other-action.yml");
+  jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+  run('', '', 'other-action.yml');
+  expect(fs.readFileSync).toBeCalledWith('other-action.yml');
 });
 
-test("handles invalid input files", () => {
-  fs.readFileSync.mockReturnValue("invalid: {");
+test('handles invalid input files', () => {
+  fs.readFileSync.mockReturnValue('invalid: {');
   expect(() => run()).toThrow(
     new Error(
-      "Unable to parse YAML file [action.yml]: unexpected end of the stream within a flow collection"
+      'Unable to parse YAML file [action.yml]: unexpected end of the stream within a flow collection'
     )
   );
 });
 
-test("handles non-objects in the YAML file", () => {
-  fs.readFileSync.mockReturnValue("basic string");
+test('handles non-objects in the YAML file', () => {
+  fs.readFileSync.mockReturnValue('basic string');
   expect(() => run()).toThrow(
-    new Error("YAML file [action.yml] does not contain an object")
+    new Error('YAML file [action.yml] does not contain an object')
   );
 });
 
-test("success (default main)", () => {
+test('success (default main)', () => {
   mockActionYaml();
 
   const expected = `name: Test Action
@@ -48,12 +46,12 @@ runs:
   main: dist/index.js
 `;
 
-  jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
-  run("dist/index.js");
-  expect(fs.writeFileSync).toBeCalledWith("action.yml", expected);
+  jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+  run('', 'dist/index.js');
+  expect(fs.writeFileSync).toBeCalledWith('action.yml', expected);
 });
 
-test("success (specified main)", () => {
+test('success (specified main)', () => {
   mockActionYaml();
   const expected = `name: Test Action
 runs:
@@ -61,9 +59,22 @@ runs:
   main: index.dist.js
 `;
 
-  jest.spyOn(fs, "writeFileSync").mockImplementation(() => {});
-  run("index.dist.js");
-  expect(fs.writeFileSync).toBeCalledWith("action.yml", expected);
+  jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+  run('', 'index.dist.js');
+  expect(fs.writeFileSync).toBeCalledWith('action.yml', expected);
+});
+
+test('success (specified runner)', () => {
+  mockActionYaml();
+  const expected = `name: Test Action
+runs:
+  using: nodewhatever
+  main: dist/index.js
+`;
+
+  jest.spyOn(fs, 'writeFileSync').mockImplementation(() => {});
+  run('nodewhatever');
+  expect(fs.writeFileSync).toBeCalledWith('action.yml', expected);
 });
 
 function mockActionYaml() {
