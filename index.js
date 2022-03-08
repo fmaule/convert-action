@@ -1,7 +1,8 @@
 const yaml = require("js-yaml");
-module.exports = function (main, filename) {
+module.exports = function (main, filename, runner) {
   main = main || "dist/index.js";
   filename = filename || "action.yml";
+  runner = runner || 'node16';
 
   const fs = require("fs");
 
@@ -16,7 +17,7 @@ module.exports = function (main, filename) {
 
     // Overwrite the existing fields
     config.runs = {
-      using: "node12",
+      using: runner,
       main,
     };
 

@@ -8,19 +8,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mheap/convert-action.git"
+    "url": "git+https://github.com/fmaule/convert-action.git"
   },
   "keywords": [
     "GitHub",
     "Actions",
     "CI"
   ],
-  "author": "Michael Heap <m@michaelheap.com>",
+  "author": "Fernando A. Maule <fer@maule.pro>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mheap/convert-action/issues"
+    "url": "https://github.com/fmaule/convert-action/issues"
   },
-  "homepage": "https://github.com/mheap/convert-action#readme",
+  "homepage": "https://github.com/fmaule/convert-action#readme",
   "devDependencies": {
     "jest": "^26.6.3"
   },
@@ -33,5 +33,8 @@
   "files": [
     "bin.js",
     "index.js"
+  ],
+  "contributors": [
+    "Michael Heap <m@michaelheap.com>"
   ]
 }
