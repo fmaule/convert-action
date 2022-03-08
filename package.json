@@ -4,7 +4,8 @@
   "description": "Update the runs.using and runs.main fields in a GitHub Actions action.yml file",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,7 @@
   },
   "homepage": "https://github.com/fmaule/convert-action#readme",
   "devDependencies": {
+    "eslint": "^8.10.0",
     "jest": "^26.6.3"
   },
   "dependencies": {
